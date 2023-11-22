@@ -8,13 +8,20 @@ import java.awt.*;
 import java.awt.event.*;
 
 class Asteroids extends Game {
+  private Ship ship;  // Declare the Ship instance
+
   public Asteroids() {
     super("Asteroids!",800,600);
+    
+    Point[] shipPoints = {new Point(0, -10), new Point(-10, 10), new Point(10, 10)};  // Define the ship's shape
+    this.ship = new Ship(shipPoints, new Point(0,0), 0);  // Initialize the Ship instance
   }
   
 	public void paint(Graphics brush) {
-    brush.setColor(Color.black);
-    brush.fillRect(0,0,width,height);
+    brush.setColor(Color.black);  //Color of the background
+    brush.fillRect(0,0,width,height); //Color from top left to bottom right
+
+    ship.paint(brush);  // Draw the ship
   }
   
 	public static void main (String[] args) {

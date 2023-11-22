@@ -23,7 +23,7 @@ class Polygon {
     rotation = inRotation;
     
     // First, we find the shape's top-most left-most boundary, its origin.
-    Position origin = shape[0].clone();
+    Point origin = new Point(shape[0].x, shape[0].y);
     for (Point p : shape) {
       if (p.x < origin.x) origin.x = p.x;
       if (p.y < origin.y) origin.y = p.y;
@@ -40,14 +40,15 @@ class Polygon {
   public Point[] getPoints() {
     Point center = findCenter();
     Point[] points = new Point[shape.length];
-    for (Point p : shape) {
-      int x = ((p.x-center.x) * Math.cos(Math.toRadians(rotation)))
-               - ((p.y-center.y) * Math.sin(Math.toRadians(rotation)))
-               + center.x/2 + position.x;
-      int y = ((p.x-center.x) * Math.sin(Math.toRadians(rotation)))
-               + ((p.y-center.y) * Math.cos(Math.toRadians(rotation)))
-               + center.y/2 + position.y;
-      points[i] = new Point(x,y);
+    for (int i = 0; i < shape.length; i++) {
+        Point p = shape[i];
+        int x = (int) (((p.x-center.x) * Math.cos(Math.toRadians(rotation)))
+                   - ((p.y-center.y) * Math.sin(Math.toRadians(rotation)))
+                   + center.x/2 + position.x);
+        int y = (int) (((p.x-center.x) * Math.sin(Math.toRadians(rotation)))
+                   + ((p.y-center.y) * Math.cos(Math.toRadians(rotation)))
+                   + center.y/2 + position.y);
+        points[i] = new Point(x,y);
     }
     return points;
   }
