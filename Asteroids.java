@@ -23,6 +23,7 @@ class Asteroids extends Game {
     brush.fillRect(0,0,width,height); //Color from top left to bottom right
 
     ship.paint(brush);  // Draw the ship
+    ship.move();  // Move the ship
   }
   
 	public static void main (String[] args) {

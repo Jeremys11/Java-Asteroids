@@ -26,4 +26,12 @@ class Ship extends Polygon {
         // Draw the polygon
         brush.drawPolygon(xPoints, yPoints, points.length);
     }
+    public void move() {
+    position.x += 1;
+
+    // If the ship goes off the screen, make it appear on the other side
+    if (position.x > 800) {
+        position.x = 0;
+    }
+    }
 }
