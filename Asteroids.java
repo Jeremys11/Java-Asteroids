@@ -12,9 +12,10 @@ class Asteroids extends Game {
 
   public Asteroids() {
     super("Asteroids!",800,600);
-    
+
     Point[] shipPoints = {new Point(0, -10), new Point(-10, 10), new Point(10, 10)};  // Define the ship's shape
-    this.ship = new Ship(shipPoints, new Point(0,0), 0);  // Initialize the Ship instance
+    Point shipPosition = new Point(width / 2, height / 2);  // Set the ship's position
+    this.ship = new Ship(shipPoints, shipPosition, 0);  // Initialize the Ship instance
   }
   
 	public void paint(Graphics brush) {
