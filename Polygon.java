@@ -69,6 +69,49 @@ class Polygon {
   }
   
   public void rotate(int degrees) {rotation = (rotation+degrees)%360;}
+
+  public boolean overlaps(Polygon other) {
+    // Get the points of both polygons
+    Point[] points1 = this.getPoints();
+    Point[] points2 = other.getPoints();
+
+    // Check all the edges of the first polygon
+    for (int i = 0; i < points1.length; i++) {
+        Point start = points1[i];
+        Point end = points1[(i+1)%points1.length];
+
+        // Find the perpendicular to this edge
+        Point normal = new Point(start.y - end.y, end.x - start.x);
+
+        // Project both polygons onto this line
+        double[] projection1 = project(points1, normal);
+        double[] projection2 = project(points2, normal);
+
+        // Check if projections overlap
+        if (projection1[0] > projection2[1] || projection2[0] > projection1[1]) {
+            // Projections do not overlap, polygons do not overlap
+            return false;
+        }
+    }
+
+      // Repeat the process for the edges of the second polygon
+      for (int i = 0; i < points2.length; i++) {
+          Point start = points2[i];
+          Point end = points2[(i+1)%points2.length];
+
+          Point normal = new Point(start.y - end.y, end.x - start.x);
+
+          double[] projection1 = project(points1, normal);
+          double[] projection2 = project(points2, normal);
+
+          if (projection1[0] > projection2[1] || projection2[0] > projection1[1]) {
+              return false;
+          }
+      }
+
+      // No separating axis found, the polygons overlap
+      return true;
+  }
   
   /*
   The following methods are private access restricted because, as this access
@@ -96,5 +139,21 @@ class Polygon {
     }
     double area = findArea();
     return new Point(Math.abs(sum.x/(6*area)),Math.abs(sum.y/(6*area)));
+  }
+
+  private double[] project(Point[] points, Point axis) {
+      double min = (points[0].x * axis.x + points[0].y * axis.y) / (axis.x * axis.x + axis.y * axis.y);
+      double max = min;
+
+      for (int i = 1; i < points.length; i++) {
+          double projection = (points[i].x * axis.x + points[i].y * axis.y) / (axis.x * axis.x + axis.y * axis.y);
+          if (projection < min) {
+              min = projection;
+          } else if (projection > max) {
+              max = projection;
+          }
+      }
+
+      return new double[]{min, max};
   }
 }

@@ -29,7 +29,7 @@ class Ship extends Polygon {
         brush.drawPolygon(xPoints, yPoints, points.length);
     }
     
-    public void move(int dx, int dy) {
+    public void move(int dx, int dy, double rotation) {
         System.out.println("Ship position: " + position.x + ", " + position.y);
         position.x += dx;
         // If the ship goes off the screen on the right, make it appear on the left
@@ -50,6 +50,9 @@ class Ship extends Polygon {
         else if (position.y < 0) {
             position.y = 600;
         }
+
+        // Update the rotation of the ship
+        this.rotation = rotation;
     }
 
     public void stopHorizontalMovement() {
