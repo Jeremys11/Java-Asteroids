@@ -8,8 +8,8 @@ public class Asteroid extends Polygon {
         super(inShape, inPosition, inRotation);
 
         // Initialize the velocities with random values
-        this.velocityX = Math.random() * 10 - 5;  // Random value between -5 and 5
-        this.velocityY = Math.random() * 10 - 5;  // Random value between -5 and 5
+        this.velocityX = Math.random() * 4 - 2;  // Random value between -5 and 5
+        this.velocityY = Math.random() * 4 - 2;  // Random value between -5 and 5
     }
 
     public void paint(Graphics brush) {

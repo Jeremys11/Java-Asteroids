@@ -55,6 +55,19 @@ class Ship extends Polygon {
         this.rotation = rotation;
     }
 
+    public Bullet createBullet() {
+        // Define the bullet's shape as a single point
+        Point[] shape = {new Point(0, 0)};
+
+        // Set the bullet's velocity based on the ship's rotation
+        int velocityX = (int) (5 * Math.cos(Math.toRadians(rotation - 90))); // Subtract 45 degrees
+        int velocityY = (int) (5 * Math.sin(Math.toRadians(rotation - 90))); // Subtract 45 degrees
+        Point velocity = new Point(velocityX, velocityY);
+
+        // Create a new Bullet at the ship's position with the defined shape and velocity
+        return new Bullet(shape, new Point(position.x, position.y), rotation, velocity);
+    }
+
     public void stopHorizontalMovement() {
         dx = 0;
     }
